@@ -1,29 +1,28 @@
-# docker-unoconv-webservice
+# docker-unoconv-webservice (alpine)
 
-Dockerimage to run unoconv as a webservice through [tfk-api-unoconv](https://github.com/zrrrzzt/tfk-api-unoconv).
+Fork of [https://github.com/zrrrzzt/docker-unoconv-webservice/](https://github.com/zrrrzzt/docker-unoconv-webservice/) : a Dockerimage to run unoconv as a webservice through [tfk-api-unoconv](https://github.com/zrrrzzt/tfk-api-unoconv).
 
-If you prefer a pre-build version it is available from [hub.docker.com](https://hub.docker.com/r/zrrrzzt/docker-unoconv-webservice)
-just do a regular pull
+This makes the docker-unoconv-webservice run an alpine base image which takes far less disk than the ubuntu based one. And this allows to run on raspberrypi (which is why I use it for).
 
-```bash
-$ docker pull zrrrzzt/docker-unoconv-webservice
-```
+You can use it with the [Unoconv UI](http://github.com/SCOTT-HAMILTON/UnoconvUI) app on Android, Linux and Windows instead of using curl.
 
 ## Build
 
 ```bash
 $ docker build -t docker-unoconv-webservice .
 ```
+or
+```bash
+$ ./build.sh
+```
 
 ## Run - example
 ```bash
 $ docker run -d -p 80:3000 --name unoconv docker-unoconv-webservice
 ```
-
-or if you use the pre-build version
-
+or
 ```bash
-$ docker run -d -p 80:3000 --name unoconv zrrrzzt/docker-unoconv-webservice
+$ ./run.sh
 ```
 
 ## Usage
@@ -35,7 +34,7 @@ See all possible conversions on the [unoconv website](http://dag.wiee.rs/home-ma
 API for the webservice is /unoconv/{format-to-convert-to} so a docx to pdf would be
 
 ```bash
-$ curl --form file=@myfile.docx http://localhost/unoconv/pdf > myfile.pdf
+$ curl -F file=@myfile.docx http://localhost/unoconv/pdf > myfile.pdf
 ```
 
 For a basic example with upload via form take a look at the [browser-file-convert](https://github.com/nithinkashyapn/browser-file-convert) example from [nithinkashyapn](https://github.com/nithinkashyapn)
